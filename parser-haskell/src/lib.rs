@@ -1,6 +1,6 @@
 #[macro_use] extern crate errln;
 
-extern crate lalrpop_util;
+#[macro_use] extern crate lalrpop_util;
 extern crate regex;
 extern crate base64;
 
@@ -22,7 +22,9 @@ pub fn preprocess(input: &str) -> String {
 pub fn parse<'input, 'err>(
     errors: &'err mut Vec<lalrpop_util::ErrorRecovery<usize, (usize, &'input str), ()>>,
     input: &'input str
-) -> Result<ast::Module, lalrpop_util::ParseError<usize, (usize, &'input str), ()>>
+) -> 
+Result<ast::Module, lalrpop_util::ParseError<usize, haskell::Token<'input>, &'static str>>
+ /* Result<ast::Module, lalrpop_util::ParseError<usize, (usize, &'input str), ()>> */
 {
-    haskell::parse_Module(errors, &input)
+    haskell::ModuleParser::new().parse(errors, &input)
 }

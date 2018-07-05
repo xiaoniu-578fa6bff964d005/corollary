@@ -1,9 +1,10 @@
 [package]
 name = "corollary"
-version = "0.3.0"
+version = "0.3.1"
 authors = [
   "Tim Ryan <tim@timryan.org>",
-  "Paul Collier <paul@paulcollier.ca>"
+  "Paul Collier <paul@paulcollier.ca>",
+  "xiaoniu <hzmxn@mail.ustc.edu.cn>"
 ]
 description = "Cross-compiles Haskell into Rust."
 repository = "http://github.com/tcr/corrode-but-in-rust"
@@ -23,4 +24,7 @@ walkdir = "1"
 Inflector = "0.10.0"
 matches = "0.1.4"
 iflet = "0.1.0"
-parser-haskell = "0.2.0"
+parser-haskell = "0.2.1"
+
+[patch.crates-io]
+parser-haskell = { path = "../parser-haskell/" }

@@ -1,9 +1,10 @@
 [package]
 name = "parser-haskell"
-version = "0.2.0"
+version = "0.2.1"
 authors = [
   "Tim Ryan <tim@timryan.org>",
-  "Paul Collier <paul@paulcollier.ca>"
+  "Paul Collier <paul@paulcollier.ca>",
+  "xiaoniu <hzmxn@mail.ustc.edu.cn>"
 ]
 description = "Parses Haskell into an AST."
 repository = "http://github.com/tcr/corrode-but-in-rust"
@@ -11,10 +12,10 @@ homepage = "http://github.com/tcr/corrode-but-in-rust"
 license = "MIT/Apache-2.0"
 
 [build-dependencies.lalrpop]
-version = "0.12.5"
+version = "0.15.2"
 
 [dependencies]
-lalrpop-util = "0.12.5"
+lalrpop-util = "0.15.2"
 regex = "0.2.1"
 base64 = "0.5.2"
 errln = "0.1.0"

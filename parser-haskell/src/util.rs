@@ -1,18 +1,20 @@
 use lalrpop_util::ParseError;
 use lalrpop_util::ParseError::*;
 
+use super::haskell;
+
 /// Converts the default ParseError shape into something easier to handle.
-pub fn simplify_parse_error<'input>(
-    error: ParseError<usize, (usize, &'input str), ()>
-    ) -> ParseError<usize, String, ()>
+pub fn simplify_parse_error<'input,'a>(
+    error: ParseError<usize, haskell::Token<'input>, &'a str>
+    ) -> ParseError<usize, String, &'a str>
 {
     match error {
         InvalidToken { location } => InvalidToken { location },
         UnrecognizedToken { token, expected } => {
-            let token = token.map(|(start, (_, tok), end)| (start, tok.into(), end));
+            let token = token.map(|(start, haskell::Token(_s, tok), end)| (start, tok.into(), end));
             UnrecognizedToken {token, expected}
         }
-        ExtraToken { token: (start, (_, tok), end) } => {
+        ExtraToken { token: (start, haskell::Token(_s, tok), end) } => {
             let token = (start, tok.into(), end);
             ExtraToken { token }
         },
@@ -65,7 +67,7 @@ fn code_error(code: &str, tok_pos: usize) {
 }
 
 // Print out errors smartly
-pub fn print_parse_error(code: &str, err: &ParseError<usize, String, ()>) {
+pub fn print_parse_error(code: &str, err: &ParseError<usize, String, &str>) {
     match *err {
         ParseError::InvalidToken { location: loc } => {
             println!("Error: Invalid token:");
